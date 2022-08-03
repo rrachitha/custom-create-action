@@ -28,7 +28,6 @@ const dotNetVersion = core.getInput('DOTNET_VERSION')
 const simpleGit = require('simple-git');
 const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
 
-
 // Create the Github Action Yaml to generate
 let data = {
     name: "Deploy DotNet project to function app with a Linux environment",
