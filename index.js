@@ -82,7 +82,10 @@ simpleGit()
 
 /* TODO: 
    - Handle errors and success response logging
-   - Add git pull method to prevent further issues by pulling latest changes
+   -- can be ignored: Add git pull method to prevent further issues by pulling latest changes
    - Need to add steps in custom action to include publishing package to Github Packages in the generated github action
-   - Parameterize yaml input for the Azure Function app name and package path
+   -- can be ignored: Parameterize yaml input for the Azure Function app name and package path
+   - Email Notifications
+   - Fork trigger issues
+   - Understand how each environment is handled for each customer.
 */ 
