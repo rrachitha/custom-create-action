@@ -1,0 +1,26 @@
+name: 'Create Github Action'
+description: 'Generates Github Action to deploy dotNet Application to Azure Functions'
+inputs:
+  userName:  # id of input
+    description: 'UserName of the github account'
+    required: true
+    default: 'rrachitha'
+  pacToken:
+    description: 'PAC Token of Github Action'
+    required: true
+  repoName:
+    description: 'Name of the repository in which to create github action'
+    required: true
+    default: 'support-repo'
+  AZURE_FUNCTIONAPP_NAME:
+    description: 'Azure Function App Name'
+    required: true
+  AZURE_FUNCTIONAPP_PACKAGE_PATH:
+    description: 'Azure Function Package path'
+    required: true
+  DOTNET_VERSION:
+    description: 'Version of DotNet'
+    required: true
+runs:
+  using: 'node16'
+  main: 'index.js'
