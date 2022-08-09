@@ -80,6 +80,8 @@ simpleGit()
     .push(['-u', 'origin', 'main'], () => console.log('done'));
 
 
+console.log(data)
+
 /* TODO: 
    - Handle errors and success response logging
    -- can be ignored: Add git pull method to prevent further issues by pulling latest changes
