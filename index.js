@@ -17,9 +17,12 @@ const octokit = require('@octokit/rest');
 
 
 // Github Info
-const userName = core.getInput('userName')
-const password = core.getInput('pacToken')
-const repoName = core.getInput('repoName')
+const userName = 'rrachitha'
+const password = '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'
+const repoName = 'support-repo'
+//const userName = core.getInput('userName')
+//const password = core.getInput('pacToken')
+//const repoName = core.getInput('repoName')
 const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME')
 const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH')
 const dotNetVersion = core.getInput('DOTNET_VERSION')
@@ -69,18 +72,24 @@ let data = {
 };
 
 let yamlStr = yaml.dump(data);
-fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
+fs.writeFileSync('deploy.yml', yamlStr, 'utf8');
 
 
-
+console.log(gitHubURL)
 // Add commit and push files
 simpleGit()
-    .add('./*')
+    .addRemote(userName, gitHubURL)
+    .add('deploy.yml')
     .commit('Add Github Action')
     .push(['-u', 'origin', 'main'], () => console.log('done'));
 
 
 console.log(data)
+
+/* TODO:
+    - Implement remote git commit and push to remote repository
+    - 
+*/
 
 /* TODO: 
    - Handle errors and success response logging
