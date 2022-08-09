@@ -17,12 +17,12 @@ const octokit = require('@octokit/rest');
 
 
 // Github Info
-const userName = 'rrachitha'
-const password = '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'
-const repoName = 'support-repo'
-//const userName = core.getInput('userName')
-//const password = core.getInput('pacToken')
-//const repoName = core.getInput('repoName')
+//const userName = 'rrachitha'
+//const password = ''
+//const repoName = 'support-repo'
+const userName = core.getInput('userName')
+const password = core.getInput('pacToken')
+const repoName = core.getInput('repoName')
 const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME')
 const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH')
 const dotNetVersion = core.getInput('DOTNET_VERSION')
