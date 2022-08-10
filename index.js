@@ -96,18 +96,23 @@ let data = {
 // Write the yaml file to support-repo
 const yamlStr = yaml.dump(data);
 // fs.writeFileSync('support-repo/.github/workflows/deploy.yml', yamlStr, 'utf8');
-core.info(process.cwd());
-
+//core.info(process.cwd());
+console.log(process.cwd());
 // Commit and push the deploy github action
 
-process.chdir(repoName);
-core.info(process.cwd());
-fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
-simpleGit()
-    .add('.github/workflows/deploy.yml')
-    .commit('Add Github Action')
-    .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
-    core.info('Successfully pushed');
+try {
+    process.chdir('support-repo/');
+    //core.info(process.cwd());
+    fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
+    simpleGit()
+        .add('.github/workflows/deploy.yml')
+        .commit('Add Github Action')
+        .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
+        core.info('Successfully pushed');
+}
+catch (err) {
+    console.log('chdir: ' + err);
+}
 
 
 
