@@ -10,26 +10,49 @@ const github = require('@actions/github');
 const { readYamlEnvSync, readYamlEnv } = require('yaml-env-defaults');
 const updateYamlDocuments = require("@atomist/yaml-updater");
 
-// write.js
+
+// setup required libraries
 const fs = require('fs');
 const yaml = require('js-yaml');
 const octokit = require('@octokit/rest');
-
+const { execSync } = require("child_process");
+const simpleGit = require('simple-git');
+const process = require('process');
 
 // Github Info
+const userName = core.getInput('userName');
+const password = core.getInput('pacToken');
+const repoName = core.getInput('repoName');
 //const userName = 'rrachitha'
 //const password = ''
 //const repoName = 'support-repo'
-const userName = core.getInput('userName')
-const password = core.getInput('pacToken')
-const repoName = core.getInput('repoName')
-const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME')
-const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH')
-const dotNetVersion = core.getInput('DOTNET_VERSION')
 
-// Simple-git without promise 
-const simpleGit = require('simple-git');
 const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
+
+// const output = execSync(`git clone '${githubURL}'`, { encoding: "utf-8" });
+//console.log(gitHubURL)
+
+if (fs.existsSync(repoName)) {
+    console.log('Repository already exists!');
+} else {
+    simpleGit()
+        .clone(gitHubURL)
+        .then(() => console.log('Repository cloned!'))
+        .catch((err) => console.error('Cloning the repository failed: ', err));
+}
+
+
+// Azure Function parameters
+//const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME');
+//const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH');
+//const dotNetVersion = core.getInput('DOTNET_VERSION');
+
+
+// Debug logs
+//console.log(azureFunctionAppName);
+//console.log(azureFunctionAppPackagePath);
+//console.log(dotNetVersion);
+
 
 // Create the Github Action Yaml to generate
 let data = {
@@ -71,20 +94,24 @@ let data = {
     }
 };
 
+// Write the yaml file to support-repo
 let yamlStr = yaml.dump(data);
-fs.writeFileSync('deploy.yml', yamlStr, 'utf8');
+fs.writeFileSync('support-repo/.github/workflows/deploy.yml', yamlStr, 'utf8');
 
 
-console.log(gitHubURL)
-// Add commit and push files
-simpleGit()
-    .addRemote(userName, gitHubURL)
-    .add('deploy.yml')
-    .commit('Add Github Action')
-    .push(['-u', 'origin', 'main'], () => console.log('done'));
+// Commit and push the deploy github action
+try {
+    process.chdir(repoName);
 
+    simpleGit()
+      .add('.github/workflows/deploy.yml')
+      .commit('Add Github Action')
+      .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
+}
+catch (err) {
+    console.log('chdir: ' + err);
+  }
 
-console.log(data)
 
 /* TODO:
     - Implement remote git commit and push to remote repository
