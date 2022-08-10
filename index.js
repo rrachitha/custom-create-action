@@ -99,16 +99,16 @@ const yamlStr = yaml.dump(data);
 core.info(process.cwd());
 
 // Commit and push the deploy github action
-if (fs.existsSync(repoName)) {
-    process.chdir(repoName);
-    core.info(process.cwd());
-    fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
-    simpleGit()
-      .add('.github/workflows/deploy.yml')
-      .commit('Add Github Action')
-      .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
-      core.info('Successfully pushed');
-}
+
+process.chdir(repoName);
+core.info(process.cwd());
+fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
+simpleGit()
+    .add('.github/workflows/deploy.yml')
+    .commit('Add Github Action')
+    .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
+    core.info('Successfully pushed');
+
 
 
 /* TODO:
