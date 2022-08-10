@@ -104,7 +104,7 @@ const yamlStr = yaml.dump(data);
 
 
 // Commit and push the deploy github action
-try {
+if (fs.existsSync(repoName)) {
     process.chdir(repoName);
     fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
     simpleGit()
@@ -112,9 +112,6 @@ try {
       .commit('Add Github Action')
       .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
 }
-catch (err) {
-    console.log('chdir: ' + err);
-  }
 
 
 /* TODO:
