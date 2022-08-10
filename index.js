@@ -101,7 +101,7 @@ core.info("Before changing directory: " + process.cwd());
 // Commit and push the deploy github action
 
 try {
-    process.chdir('support-repo/');
+    process.chdir('/support-repo');
     core.info("After changing directory: " + process.cwd());
     fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
     simpleGit()
