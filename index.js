@@ -29,8 +29,6 @@ const repoName = core.getInput('repoName');
 
 const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
 
-// const output = execSync(`git clone '${githubURL}'`, { encoding: "utf-8" });
-//console.log(gitHubURL)
 
 if (fs.existsSync(repoName)) {
     console.log('Repository already exists!');
@@ -53,9 +51,6 @@ const dotNetVersion = core.getInput('DOTNET_VERSION');
 core.info(azureFunctionAppName);
 core.info(azureFunctionAppPackagePath);
 core.info(dotNetVersion);
-//console.log(azureFunctionAppName);
-//console.log(azureFunctionAppPackagePath);
-//console.log(dotNetVersion);
 
 
 // Create the Github Action Yaml to generate
@@ -111,6 +106,7 @@ if (fs.existsSync(repoName)) {
       .add('.github/workflows/deploy.yml')
       .commit('Add Github Action')
       .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
+      core.info('Successfully pushed');
 }
 
 
