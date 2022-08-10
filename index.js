@@ -34,6 +34,7 @@ const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repo
 
 if (fs.existsSync(repoName)) {
     console.log('Repository already exists!');
+    core.info('Repository already exists!');
 } else {
     simpleGit()
         .clone(gitHubURL)
@@ -43,12 +44,15 @@ if (fs.existsSync(repoName)) {
 
 
 // Azure Function parameters
-//const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME');
-//const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH');
-//const dotNetVersion = core.getInput('DOTNET_VERSION');
+const azureFunctionAppName = core.getInput('AZURE_FUNCTIONAPP_NAME');
+const azureFunctionAppPackagePath = core.getInput('AZURE_FUNCTIONAPP_PACKAGE_PATH');
+const dotNetVersion = core.getInput('DOTNET_VERSION');
 
 
 // Debug logs
+core.info(azureFunctionAppName);
+core.info(azureFunctionAppPackagePath);
+core.info(dotNetVersion);
 //console.log(azureFunctionAppName);
 //console.log(azureFunctionAppPackagePath);
 //console.log(dotNetVersion);
