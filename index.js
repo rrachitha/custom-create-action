@@ -96,11 +96,12 @@ let data = {
 // Write the yaml file to support-repo
 const yamlStr = yaml.dump(data);
 // fs.writeFileSync('support-repo/.github/workflows/deploy.yml', yamlStr, 'utf8');
-
+core.info(process.cwd());
 
 // Commit and push the deploy github action
 if (fs.existsSync(repoName)) {
     process.chdir(repoName);
+    core.info(process.cwd());
     fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
     simpleGit()
       .add('.github/workflows/deploy.yml')
