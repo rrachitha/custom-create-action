@@ -55,7 +55,7 @@ core.info(dotNetVersion);
 
 // Create the Github Action Yaml to generate
 let data = {
-    name: "Deploy DotNet project to function app with a Linux environment--",
+    name: "Deploy DotNet project to function app with a Linux environment-----,
     on: 'create',
     env: {AZURE_FUNCTIONAPP_NAME: 'function-app', AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output', DOTNET_VERSION: '${{ env.DOTNET_VERSION}}'},
     jobs: {
