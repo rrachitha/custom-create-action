@@ -100,20 +100,18 @@ core.info("Before changing directory: " + process.cwd());
 //console.log(process.cwd());
 // Commit and push the deploy github action
 
-try {
-    core.info("Just before chdir: " + process.cwd());
-    process.chdir('support-repo');
-    core.info("After changing directory: " + process.cwd());
-    fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
-    simpleGit()
-        .add('.github/workflows/deploy.yml')
-        .commit('Add Github Action')
-        .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
-        core.info('Successfully pushed');
-}
-catch (err) {
-    console.log('chdir: ' + err);
-}
+
+core.info("Just before chdir: " + process.cwd());
+process.chdir('support-repo');
+core.info("After changing directory: " + process.cwd());
+fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
+simpleGit()
+    .add('.github/workflows/deploy.yml')
+    .commit('Add Github Action')
+    .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
+    core.info('Successfully pushed');
+
+
 
 
 
