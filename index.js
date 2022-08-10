@@ -102,7 +102,7 @@ core.info("Before changing directory: " + process.cwd());
 
 try {
     core.info("Just before chdir: " + process.cwd());
-    process.chdir('/home/runner/work/fuzzy-octo-journey/fuzzy-octo-journey/support-repo');
+    process.chdir('support-repo');
     core.info("After changing directory: " + process.cwd());
     fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
     simpleGit()
