@@ -24,7 +24,7 @@ const process = require('process');
 const userName = core.getInput('userName');
 const pacToken = core.getInput('pacToken');
 const repoName = core.getInput('repoName');
-const branch   = core.getInput('branch');
+const branchName   = core.getInput('branch');
 const dirpath  = '.github/workflows'
 //const userName = 'rrachitha'
 //const pacToken = ''
@@ -139,7 +139,7 @@ const main = async () => {
       path: ".github/workflows/deploy.yml",
       message: "feat: Added workflow programatically",
       content: contentEncoded,
-      branch: 'staging',
+      branch: branchName,
       committer: {
         name: `rrachitha`,
         email: "rrajagopal@architech.ca",
