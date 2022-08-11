@@ -14,21 +14,24 @@ const updateYamlDocuments = require("@atomist/yaml-updater");
 // setup required libraries
 const fs = require('fs');
 const yaml = require('js-yaml');
-const { Octokit } = require('@octokit/rest')
+//const { Octokit } = require('@octokit/rest')
 const { execSync } = require("child_process");
 const simpleGit = require('simple-git');
 const process = require('process');
 
+
 // Github Info
 const userName = core.getInput('userName');
-const password = core.getInput('pacToken');
+const pacToken = core.getInput('pacToken');
 const repoName = core.getInput('repoName');
-const branch   = core.getInput('branch')
+const branch   = core.getInput('branch');
+const dirpath  = '.github/workflows'
 //const userName = 'rrachitha'
-//const password = ''
+//const pacToken = ''
 //const repoName = 'support-repo'
+//const branch   = 'dev'
 
-const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
+//const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
 
 
 /*
@@ -57,7 +60,7 @@ core.info(dotNetVersion);
 
 // Create the Github Action Yaml to generate
 let data = {
-    name: "Deploy DotNet project to function app with a Linux environment-----",
+    name: "Deploy DotNet project to function app with a Linux environment---------",
     on: 'create',
     env: {AZURE_FUNCTIONAPP_NAME: 'function-app', AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output', DOTNET_VERSION: '${{ env.DOTNET_VERSION}}'},
     jobs: {
@@ -97,7 +100,8 @@ let data = {
 
 // Write the yaml file to support-repo
 const yamlStr = yaml.dump(data);
-// fs.writeFileSync('support-repo/.github/workflows/deploy.yml', yamlStr, 'utf8');
+fs.mkdirSync(dirpath, { recursive: true })
+fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
 core.info("Before changing directory: " + process.cwd());
 //console.log(process.cwd());
 // Commit and push the deploy github action
@@ -107,9 +111,54 @@ core.info("Just before chdir: " + process.cwd());
 //process.chdir('support-repo/');
 core.info("After changing directory: " + process.cwd());
 fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
-var files = fs.readdirSync('.github/workflows/');
-core.info(files);
+//var files = fs.readdirSync('.github/workflows/');
+//core.info(files);
 
+
+const { Octokit } = require("@octokit/rest");
+const { Base64 } = require("js-base64");
+//const fs = require("fs");
+
+require("dotenv").config();
+
+const octokit = new Octokit({
+  auth: `${pacToken}`,
+});
+
+
+const main = async () => {
+  try {
+    console.log("Before reading the file:" + process.cwd());
+    const content = fs.readFileSync(".github/workflows/deploy.yml", "utf-8");
+    const contentEncoded = Base64.encode(content);
+
+    const { data } = await octokit.repos.createOrUpdateFileContents({
+      // replace the owner and email with your own details
+      owner: `${userName}`,
+      repo: `${repoName}`,
+      path: ".github/workflows/deploy.yml",
+      message: "feat: Added workflow programatically",
+      content: contentEncoded,
+      branch: `${branch}`,
+      committer: {
+        name: `rrachitha`,
+        email: "rrajagopal@architech.ca",
+      },
+      author: {
+        name: "rrachitha",
+        email: "rrajagopal@architech.ca",
+      },
+    });
+
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+main();
+
+/*
 process.chdir('.github/workflows/');
 
 simpleGit()
@@ -123,11 +172,15 @@ simpleGit()
 
 
 //console.log(pushContents)
-//core.info(pushContents)
+//core.info(pushContents)*/
 
 
 
-    
+
+
+
+
+
 
 
 
