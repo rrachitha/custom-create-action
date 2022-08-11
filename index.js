@@ -109,8 +109,10 @@ fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
 var files = fs.readdirSync('.github/workflows/');
 core.info(files);
 
+process.chdir('.github/workflows/')
+
 simpleGit()
-    .add('.github/workflows/deploy.yml')
+    .add('.')
     .commit('Add Github Action')
     .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
     core.info('Successfully pushed');
