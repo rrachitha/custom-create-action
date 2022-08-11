@@ -139,7 +139,7 @@ const main = async () => {
       path: ".github/workflows/deploy.yml",
       message: "feat: Added workflow programatically",
       content: contentEncoded,
-      branch: 'dev',
+      branch: 'staging',
       committer: {
         name: `rrachitha`,
         email: "rrajagopal@architech.ca",
