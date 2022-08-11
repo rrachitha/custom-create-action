@@ -14,7 +14,7 @@ const updateYamlDocuments = require("@atomist/yaml-updater");
 // setup required libraries
 const fs = require('fs');
 const yaml = require('js-yaml');
-const octokit = require('@octokit/rest');
+const { Octokit } = require('@octokit/rest')
 const { execSync } = require("child_process");
 const simpleGit = require('simple-git');
 const process = require('process');
@@ -119,7 +119,7 @@ process.chdir('.github/workflows/');
     .push(['origin', 'main'], () => core.info('Github Action successfully added!'));*/
 
 
-const octo = new octokit({
+const octo = new Octokit({
     auth: process.env.password,
 })
 
