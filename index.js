@@ -23,6 +23,7 @@ const process = require('process');
 const userName = core.getInput('userName');
 const password = core.getInput('pacToken');
 const repoName = core.getInput('repoName');
+const branch   = core.getInput('branch')
 //const userName = 'rrachitha'
 //const password = ''
 //const repoName = 'support-repo'
@@ -112,6 +113,7 @@ core.info(files);
 process.chdir('.github/workflows/');
 
 simpleGit()
+    .addRemote('origin', 'https://github.com/rrachitha/support-repo.git')
     .add('./deploy.yml')
     .commit('Add Github Action')
     .push(['origin', 'main'], () => console.log('Github Action successfully added!'));
