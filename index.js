@@ -112,11 +112,32 @@ core.info(files);
 
 process.chdir('.github/workflows/');
 
-simpleGit()
+/*simpleGit()
     .addRemote('origin', 'https://github.com/rrachitha/support-repo.git')
     .add('./deploy.yml')
     .commit('Add Github Action')
-    .push(['origin', 'main'], () => core.info('Github Action successfully added!'));
+    .push(['origin', 'main'], () => core.info('Github Action successfully added!'));*/
+
+
+const octo = new Octokit({
+    auth: process.env.password,
+})
+
+const pushContents = async () => {
+    const commits = await octo.repos.listCommits({
+        owner,
+        repo,
+    });
+
+    const latestCommitSHA = commits.data[0].sha;
+}
+
+
+console.log(pushContents)
+core.info(pushContents)
+
+
+
     
 
 
