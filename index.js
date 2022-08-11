@@ -116,7 +116,7 @@ simpleGit()
     .addRemote('origin', 'https://github.com/rrachitha/support-repo.git')
     .add('./deploy.yml')
     .commit('Add Github Action')
-    .push(['origin', 'main'], () => console.log('Github Action successfully added!'));
+    .push(['origin', 'main'], () => core.info('Github Action successfully added!'));
     
 
 
