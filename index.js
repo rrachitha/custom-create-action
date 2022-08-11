@@ -109,7 +109,7 @@ fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
 var files = fs.readdirSync('.github/workflows/');
 core.info(files);
 
-process.chdir('.github/workflows/')
+process.chdir('.github/workflows/');
 
 simpleGit()
     .add('./deploy.yml')
