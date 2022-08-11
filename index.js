@@ -112,10 +112,10 @@ core.info(files);
 process.chdir('.github/workflows/')
 
 simpleGit()
-    .add('.')
+    .add('./deploy.yml')
     .commit('Add Github Action')
-    .push(['-u', 'origin', 'main'], () => console.log('Github Action successfully added!'));
-    core.info('Successfully pushed');
+    .push(['origin', 'main'], () => console.log('Github Action successfully added!'));
+    
 
 
 
