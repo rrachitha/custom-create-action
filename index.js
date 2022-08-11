@@ -106,6 +106,9 @@ core.info("Just before chdir: " + process.cwd());
 //process.chdir('support-repo/');
 core.info("After changing directory: " + process.cwd());
 fs.writeFileSync('.github/workflows/deploy.yml', yamlStr, 'utf8');
+var files = fs.readdirSync('.github/workflows/');
+core.info(files);
+
 simpleGit()
     .add('.github/workflows/deploy.yml')
     .commit('Add Github Action')
