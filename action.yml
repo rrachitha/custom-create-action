@@ -12,6 +12,9 @@ inputs:
     description: 'Name of the repository in which to create github action'
     required: true
     default: 'support-repo'
+  branchName:
+    description: 'Name of the branch to create the github action'
+    required: true
   AZURE_FUNCTIONAPP_NAME:
     description: 'Azure Function App Name'
     required: true
