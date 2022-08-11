@@ -119,7 +119,7 @@ process.chdir('.github/workflows/');
     .push(['origin', 'main'], () => core.info('Github Action successfully added!'));*/
 
 
-const octo = new Octokit({
+const octo = new octokit({
     auth: process.env.password,
 })
 
