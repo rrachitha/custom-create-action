@@ -30,6 +30,7 @@ const repoName = core.getInput('repoName');
 const gitHubURL = `https://${userName}:${password}@github.com/${userName}/${repoName}.git`;
 
 
+/*
 if (fs.existsSync(repoName)) {
     console.log('Repository already exists!');
     core.info('Repository already exists!');
@@ -38,7 +39,7 @@ if (fs.existsSync(repoName)) {
         .clone(gitHubURL)
         .then(() => console.log('Repository cloned!'))
         .catch((err) => console.error('Cloning the repository failed: ', err));
-}
+}*/
 
 
 // Azure Function parameters
